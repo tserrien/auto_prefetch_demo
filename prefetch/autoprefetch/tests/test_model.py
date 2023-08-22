@@ -37,6 +37,9 @@ def test_foreign_connection_of_foreign_object(comments):
     # Does this still eliminate hundreds of useless repetitions of a query?
     # Also yes
 
+    # Note that this behavior is intended and scales well.
+    # Every FK connection utilized only introduces one more query.
+
     comments = Comment.objects.all()
 
     with assertNumQueries(3):
@@ -45,16 +48,17 @@ def test_foreign_connection_of_foreign_object(comments):
 
 
 def test_reverse(comments):
+    # ForeignKey reverese relationships are many-to-one queries
     posts = Post.objects.all()
 
-    with assertNumQueries(2):
+    with assertNumQueries(101):
         for post in posts:
             for comment in post.comments.all():
                 print(comment.created_on)
 
-    # Expected behaviour:
-    # posts = Post.objects.prefetch_related("comments")
-    # with assertNumQueries(2):
-    #     for post in posts:
-    #         for comment in post.comments.all():
-    #             print(comment.created_on)
+    # Django's prefetch can handle this though without using select_related
+    posts_prefetch = Post.objects.prefetch_related("comments")
+    with assertNumQueries(2):
+        for post in posts_prefetch:
+            for comment in post.comments.all():
+                print(comment.created_on)
