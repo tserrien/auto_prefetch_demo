@@ -19,7 +19,7 @@ def posts() -> QuerySet[Post]:
 
 
 @pytest.fixture
-def comments() -> QuerySet[Comment]:
+def prefetch_comments() -> QuerySet[Comment]:
     authors()
     commenters()
     posts()

@@ -10,7 +10,7 @@ pytestmark = pytest.mark.django_db
 # Testing is mostly interesting on the list-views as that's where most admin surfaces struggle
 
 
-def test_author_admin(admin_user, admin_client, comments):
+def test_author_admin(admin_user, admin_client, prefetch_comments):
     # 1 auth query to get session cookies
     # 1 to get auth user details
     # 2 random queries for counts baked into eachadmin page
@@ -24,7 +24,7 @@ def test_author_admin(admin_user, admin_client, comments):
         admin_client.get(url)
 
 
-def test_author_detail_admin(admin_user, admin_client, comments):
+def test_author_detail_admin(admin_user, admin_client, prefetch_comments):
     # 6 = 2 session save points, 1 auth user query, 1 cookie query, 1 content type
     # + 1 actual query for the requested object.
     admin_client.force_login(admin_user)
@@ -35,7 +35,7 @@ def test_author_detail_admin(admin_user, admin_client, comments):
         admin_client.get(url)
 
 
-def test_comment_list_admin(admin_user, admin_client, comments):
+def test_comment_list_admin(admin_user, admin_client, prefetch_comments):
     # 7 = 1 for session cookie, 1 for auth user, 2 random counts for baked-in element counts that doesn't seem to be reused
     # 1 for comments, 1 for commenter username, 1 for post title
     admin_client.force_login(admin_user)

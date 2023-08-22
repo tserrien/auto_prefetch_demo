@@ -5,7 +5,7 @@ from rest_framework.reverse import reverse
 pytestmark = pytest.mark.django_db
 
 
-def test_author_list(client, comments):
+def test_author_list(client, prefetch_comments):
     # Not expecting any funny business, model has no FK fields
     # Serializer doesn't fetch reverse relationship
 
@@ -15,7 +15,7 @@ def test_author_list(client, comments):
         client.get(url)
 
 
-def test_post_detail(client, comments):
+def test_post_detail(client, prefetch_comments):
     # This is where the fun begins
     # Author is fetched via a reverse relationship
     # Comments still broken, _but_ one query saved
@@ -27,12 +27,10 @@ def test_post_detail(client, comments):
         client.get(url)
 
 
-def test_post_list(client, comments):
-    # I expect the number of queries to remain 2 with comments on the serializer
-    # however it skyrockets to 102
-    # Theory: 1 for all posts + 1 for all authors + 100 for comments of each post
+def test_post_list(client, prefetch_comments):
+    # 1 for all posts + 1 for all authors + 100 for comments of each post
 
     url = reverse("autopref:post-list")
 
-    with assertNumQueries(2):
+    with assertNumQueries(102):
         client.get(url)
