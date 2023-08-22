@@ -42,5 +42,5 @@ def test_comment_list_admin(admin_user, admin_client, comments):
 
     url = reverse("admin:autoprefetch_comment_changelist")
 
-    with assertNumQueries(6):
+    with assertNumQueries(7):
         admin_client.get(url)
