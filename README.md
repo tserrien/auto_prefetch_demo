@@ -55,7 +55,7 @@ project. Please refer to the original docs.
 | Pros                                                                                            | Cons                                          |
 |-------------------------------------------------------------------------------------------------|-----------------------------------------------|
 | Almost [plug-and-play](https://www.meme-arsenal.com/memes/321b3cdd8d21162edff6e3529c988d66.jpg) | One more layer of complexity added to the ORM |
-| Can't forget to use prefetch                                                                    | Doesn't deal with many-to-many or many        |
+| Can't forget to use prefetch                                                                    | Doesn't deal with many-to-many relationships  |
 | Serializers also benefit from the package (only forwards lookups atm)                           | Reverse relationships seem broken             |
 | Massive savings in admin views where related fields appear on changelist views                  |                                               |
 
