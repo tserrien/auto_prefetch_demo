@@ -1,6 +1,20 @@
+# The big 1+N problem solving showdown
 The goal of this project is to showcase the (proper) usage of [django-auto-prefetch](https://pypi.org/project/django-auto-prefetch/) through examples.
 The project is intended to assist me in providing an example to colleagues, but it's a great opportunity to give back to the community.  
 Hope you learn something reading the code and resources!
+
+<!-- TOC -->
+* [The big 1+N problem solving showdown](#the-big-1n-problem-solving-showdown)
+* [Okay, okay, but what's the fuss about?](#okay-okay-but-whats-the-fuss-about)
+  * [Project scope](#project-scope)
+  * [What the project is NOT about:](#what-the-project-is-not-about-)
+  * [The 1+N query problem in a nutshell](#the-1n-query-problem-in-a-nutshell)
+  * [Potential solutions](#potential-solutions)
+    * [Manual prefetching only where needed](#manual-prefetching-only-where-needed)
+    * [Using django-auto-prefetch](#using-django-auto-prefetch)
+  * [Conclusion:](#conclusion-)
+  * [Found a mistake? Should I look into something more exotic in admin?](#found-a-mistake-should-i-look-into-something-more-exotic-in-admin)
+<!-- TOC -->
 
 # Okay, okay, but what's the fuss about?
 
@@ -46,6 +60,9 @@ of analytics tools are available to detect this problem.
 | Can fix many-to-many type queries (in combination with `.select_related()`) | Time-consuming                                        |
 |                                                                             | Does not apply to neither endpoints nor admin views   |
 
+Coming soon:
+Admin and views for this app as well to see how much extra code is required even in a simple app like this for comparable results.
+Goal: Low effort (no custom querysets) and high effort (with custom querysets) versions
 
 ### Using django-auto-prefetch
 This approach requires finding all your models with ForeignKey fields, changing/adding a few imports and potentially
@@ -71,7 +88,9 @@ The extra library also means an extra liability in case the package falls out of
 
 Open a pr or issue!
 
-###### Disclaimer:
+
+
+Disclaimer:
 I've chosen to test only with `ForeignKey` fields as in my day-to-day I'm yet to meet a OneToOne field.
 
 I do not have any personal, professional or financial connection to any of the sources linked.
