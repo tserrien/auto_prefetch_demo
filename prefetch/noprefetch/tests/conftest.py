@@ -19,7 +19,7 @@ def posts() -> QuerySet[Post]:
 
 
 @pytest.fixture
-def comments() -> QuerySet[Comment]:
+def noprefetch_comments() -> QuerySet[Comment]:
     commenters()
     posts()
     return mixer.cycle(1500).blend(Comment, owner=mixer.SELECT, posted_under=mixer.SELECT)
