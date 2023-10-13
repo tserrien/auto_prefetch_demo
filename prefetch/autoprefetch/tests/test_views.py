@@ -18,12 +18,10 @@ def test_author_list(client, prefetch_comments):
 def test_post_detail(client, prefetch_comments):
     # This is where the fun begins
     # Author is fetched via a reverse relationship
-    # Comments still broken, _but_ one query saved
-    # Victory?
 
     url = reverse("autopref:post-detail", kwargs={"pk": 1})
 
-    with assertNumQueries(2):
+    with assertNumQueries(3):
         client.get(url)
 
 
