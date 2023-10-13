@@ -7,13 +7,14 @@ Hope you learn something reading the code and resources!
 * [The big 1+N problem solving showdown](#the-big-1n-problem-solving-showdown)
 * [Okay, okay, but what's the fuss about?](#okay-okay-but-whats-the-fuss-about)
   * [Project scope](#project-scope)
-  * [What the project is NOT about:](#what-the-project-is-not-about-)
+  * [What the project is NOT about:](#what-the-project-is-not-about)
   * [The 1+N query problem in a nutshell](#the-1n-query-problem-in-a-nutshell)
   * [Potential solutions](#potential-solutions)
     * [Manual prefetching only where needed](#manual-prefetching-only-where-needed)
     * [Using django-auto-prefetch](#using-django-auto-prefetch)
-  * [Conclusion:](#conclusion-)
+  * [Conclusion:](#conclusion)
   * [Found a mistake? Should I look into something more exotic in admin?](#found-a-mistake-should-i-look-into-something-more-exotic-in-admin)
+* [Running the project locally](#running-the-project-locally)
 <!-- TOC -->
 
 # Okay, okay, but what's the fuss about?
@@ -95,4 +96,29 @@ I've chosen to test only with `ForeignKey` fields as in my day-to-day I'm yet to
 
 I do not have any personal, professional or financial connection to any of the sources linked.
 
+
+# Running the project locally
+
+- Open a terminal in the project root
+- Create and launch [virtual environment](https://docs.python.org/3/library/venv.html)
+- Create a `.env` file in project root. Copy contents of `.env.example` into it.
+- Generate a django secret key ([guide](https://www.educative.io/answers/how-to-generate-a-django-secretkey))
+
+To start the development server:
+```shell
+cd prefetch
+```
+```shell
+python manage.py runserver
+```
+
+To run the tests:
+if not already in <root>/prefetch:
+```shell
+cd prefetch
+```
+Pytest is configured to my taste. Settings can be found in `pytest.ini`. [Docs](https://docs.pytest.org/en/latest/reference/customize.html) for customization
+```shell
+pytest
+```
 
