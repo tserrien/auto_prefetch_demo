@@ -6,7 +6,7 @@ from ..models import Comment, Post
 pytestmark = pytest.mark.django_db
 
 
-def test_default_query_no_prefetch(comments):
+def test_default_query_no_prefetch(prefetch_comments):
     # Just like without using auto-prefetch only one query should be executed here
 
     comments = Comment.objects.all()
@@ -16,7 +16,7 @@ def test_default_query_no_prefetch(comments):
             print(comment.body)
 
 
-def test_one_foreign_connection(comments):
+def test_one_foreign_connection(prefetch_comments):
     # Here we expect auto-prefect to first create a query to execute
     # the .objects.all() query and one more when it detects a related model's fields are accessed.
     # Note the difference in queries executed compared to not using auto-prefetch
@@ -28,7 +28,7 @@ def test_one_foreign_connection(comments):
             print(comment.posted_under.title)
 
 
-def test_foreign_connection_of_foreign_object(comments):
+def test_foreign_connection_of_foreign_object(prefetch_comments):
     # Here auto-prefetch needs to detect not only one but two relations.
 
     # Would only 1 or 2 queries be nicer?
@@ -47,7 +47,7 @@ def test_foreign_connection_of_foreign_object(comments):
             print(comment.posted_under.author.name)
 
 
-def test_reverse(comments):
+def test_reverse(prefetch_comments):
     # ForeignKey reverese relationships are many-to-one queries
     posts = Post.objects.all()
 
