@@ -1,4 +1,3 @@
-
 import pytest
 from pytest_django.asserts import assertNumQueries
 from rest_framework.reverse import reverse
